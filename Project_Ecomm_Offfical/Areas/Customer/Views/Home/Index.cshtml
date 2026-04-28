@@ -1,33 +1,29 @@
 ﻿@model IEnumerable<Project_Ecomm_Offical.Models.Product>
-<div class="row">
-@foreach (var product in Model)
-{
-    <div class="col-lg-3 col-md-6">
-        <div class="row p-2">
-            <div class="col-12  p-1" style="border:1px solid #008cba; border-radius: 5px;">
-                <div class="card" style="border:0px;">
-                        <img src="@product.ImageUrl" class="card-img-top rounded img-responsive" width="100%"
-                         height="230px"  />@* Equal size image*@
-                    <div class="pl-1">
-                        <p class="card-title h5"><b style="color:#2c3e50">@product.Title</b></p>
-                        <p class="card-title text-primary">by <b>@product.Author</b></p>
-                    </div>
-                    <div style="padding-left:5px;">
-                        <p>List Price: <strike><b class="">@product.ListPrice.ToString("C")</b></strike></p>
-                    </div>
-                    <div style="padding-left:5px;">
-                        <p style="color:maroon">As low as: <b class="">@product.Price.ToString("C")</b></p>
-                    </div>
+
+<div class="hero-banner d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+    <div>
+        <h1 class="h3 mb-2">Discover your next favorite read</h1>
+        <p class="text-secondary mb-0">Browse curated titles, compare bulk pricing instantly, and order in seconds.</p>
+    </div>
+    <span class="badge rounded-pill text-bg-info px-3 py-2">Premium Catalog UI</span>
+</div>
+
+<div class="row g-3">
+    @foreach (var product in Model)
+    {
+        <div class="col-lg-3 col-md-6">
+            <div class="product-grid-card h-100">
+                <div class="product-image-wrap">
+                    <img src="@product.ImageUrl" alt="@product.Title" />
                 </div>
-                <div>
-                    <a asp-action="Details" class="btn btn-primary form-control" asp-route-id="@product.Id">Details</a>
+                <div class="p-3 d-flex flex-column h-100">
+                    <p class="card-title fs-5 fw-bold mb-1">@product.Title</p>
+                    <p class="product-meta mb-2">by <strong>@product.Author</strong></p>
+                    <p class="small mb-1">List Price: <strike>@product.ListPrice.ToString("C")</strike></p>
+                    <p class="price-live mb-3">As low as: @product.Price.ToString("C")</p>
+                    <a asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary mt-auto">View Details</a>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
 </div>
-
-
-
-
