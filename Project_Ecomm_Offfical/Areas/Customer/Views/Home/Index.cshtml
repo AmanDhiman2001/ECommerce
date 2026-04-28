@@ -1,33 +1,36 @@
 ﻿@model IEnumerable<Project_Ecomm_Offical.Models.Product>
-<div class="row">
-@foreach (var product in Model)
-{
-    <div class="col-lg-3 col-md-6">
-        <div class="row p-2">
-            <div class="col-12  p-1" style="border:1px solid #008cba; border-radius: 5px;">
-                <div class="card" style="border:0px;">
-                        <img src="@product.ImageUrl" class="card-img-top rounded img-responsive" width="100%"
-                         height="230px"  />@* Equal size image*@
-                    <div class="pl-1">
-                        <p class="card-title h5"><b style="color:#2c3e50">@product.Title</b></p>
-                        <p class="card-title text-primary">by <b>@product.Author</b></p>
-                    </div>
-                    <div style="padding-left:5px;">
-                        <p>List Price: <strike><b class="">@product.ListPrice.ToString("C")</b></strike></p>
-                    </div>
-                    <div style="padding-left:5px;">
-                        <p style="color:maroon">As low as: <b class="">@product.Price.ToString("C")</b></p>
-                    </div>
+
+<section class="hero-banner">
+    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+        <div>
+            <p class="text-uppercase fw-semibold mb-2">Smart Shopping Platform</p>
+            <h1 class="display-6 fw-bold mb-3">Discover premium books with a modern buying experience</h1>
+            <p class="hero-subtitle mb-0">Browse curated titles, compare tier pricing instantly, and place orders in just a few clicks.</p>
+        </div>
+        <div class="text-lg-end">
+            <span class="badge bg-light text-dark px-3 py-2 fs-6">@Model.Count() Titles Available</span>
+        </div>
+    </div>
+</section>
+
+<div class="row g-4 catalog-grid">
+    @foreach (var product in Model)
+    {
+        <div class="col-xl-3 col-lg-4 col-md-6">
+            <div class="product-tile d-flex flex-column">
+                <div class="product-image-wrap">
+                    <img src="@product.ImageUrl" class="product-image" alt="@product.Title" />
                 </div>
-                <div>
-                    <a asp-action="Details" class="btn btn-primary form-control" asp-route-id="@product.Id">Details</a>
+                <div class="p-3 d-flex flex-column flex-grow-1">
+                    <h5 class="fw-bold mb-1">@product.Title</h5>
+                    <p class="text-muted mb-2">by <span class="fw-semibold">@product.Author</span></p>
+                    <p class="text-muted mb-2">List Price: <strike>@product.ListPrice.ToString("C")</strike></p>
+                    <div class="d-flex align-items-center justify-content-between mt-auto">
+                        <span class="price-pill">@product.Price.ToString("C")</span>
+                        <a asp-action="Details" class="btn btn-primary px-3" asp-route-id="@product.Id">View</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
 </div>
-
-
-
-
