@@ -6,124 +6,89 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Project_Ecomm_Offfical</title>
+    <title>@ViewData["Title"] - ShopSphere</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Project_Ecomm_Offfical.styles.css" asp-append-version="true" />
-    @*CSS*@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
-
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg ecom-navbar mb-4">
+            <div class="container-fluid px-lg-4">
+                <a class="navbar-brand" asp-area="Customer" asp-controller="Home" asp-action="Index">🛍️ ShopSphere</a>
+                <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li> 
-                       @if (User.IsInRole(SD.Role_Admin))
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Content Mangement</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
-                                    <a class=" dropdown-item text-white" asp-area="Admin" asp-controller="CoverType" asp-action="Index">CoverType</a>
-                                    <a class=" dropdown-item text-white" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
-                                    @*<a class=" dropdown-item text-white" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>*@
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Order Mangement</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Order" asp-action="Index">All Order</a>
-                                    <a class=" dropdown-item text-white" asp-area="Admin" asp-controller="Order" asp-action="Product">Pending Order</a>
-                                    <a class=" dropdown-item text-white" asp-area="Admin" asp-controller="Order" asp-action="Products">Aproved Order</a>
-                                </div>
-                            </li>
-                        }
-                       @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Emoloyee))
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Company / User</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item text-white" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
-                                    <hr />
-                                    <a class=" dropdown-item text-white" asp-area="Admin" asp-controller="User" asp-action="Index">User</a>
-                                </div>
-                            </li>
-                        }
-                        @if (httpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount)!= null 
-                        && httpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount) != 0)
-                        {
-                            var count = httpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount);
-                            <li>
-                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class=" nav-link text-white">
-                                    <i class=" fas fa-shopping-cart"></i>(@count)
-                                </a>
-                            </li>
-                        }
-                        else
-                        {
-                            <li>
-                                <a class=" nav-link text-white">
-                                    <i class=" fas fa-shopping-cart"></i>(0)
-                                </a>
-                            </li>
-                        }
-                       @* @if (httpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount) != null
-                        && httpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount) != 0)
-                        {
-                            var count = httpContextAccessor.HttpContext.Session.GetInt32(SD.Ss_CartSessionCount);
+                <div id="mainNav" class="navbar-collapse collapse d-lg-flex justify-content-between">
+                    <ul class="navbar-nav align-items-lg-center gap-lg-2">
+                        <li class="nav-item"><a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
 
-                            <li>
-                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link text-white">
-                                    <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
-                                </a>
+                        @if (User.IsInRole(SD.Role_Admin))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Content Management</a>
+                                <div class="dropdown-menu dropdown-menu-dark">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="CoverType" asp-action="Index">CoverType</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Order Management</a>
+                                <div class="dropdown-menu dropdown-menu-dark">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Order" asp-action="Index">All Orders</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Order" asp-action="Product">Pending Orders</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Order" asp-action="Products">Approved Orders</a>
+                                </div>
                             </li>
                         }
-                        else
+
+                        @if (User.IsInRole(SD.Role_Admin) || User.IsInRole(SD.Role_Emoloyee))
                         {
-                            <li>
-                                <a class="nav-link text-white">
-                                    <i class="fas fa-shopping-cart"></i> &nbsp; (0)
-                                </a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button">Company / User</a>
+                                <div class="dropdown-menu dropdown-menu-dark">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">User</a>
+                                </div>
                             </li>
-                        }*@
+                        }
+
+                        @{
+                            var cartCount = httpContextAccessor.HttpContext?.Session.GetInt32(SD.Ss_CartSessionCount) ?? 0;
+                        }
+                        <li class="nav-item">
+                            <a asp-area="Customer" asp-controller="Cart" asp-action="Index" class="nav-link">
+                                <i class="fas fa-shopping-cart"></i> Cart (@cartCount)
+                            </a>
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+    <div class="container pb-3">
+        <main role="main" class="ecom-shell">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container text-primary">
-            &copy; 2023 - Shopping Application
+    <footer class="border-top footer text-muted mt-4">
+        <div class="container py-3 text-primary">
+            &copy; @DateTime.Now.Year - ShopSphere Commerce. Designed for faster product discovery.
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @*JS*@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
